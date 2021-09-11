@@ -6,7 +6,7 @@
    Created by Slavisa Milojkovic - http://github.io/slax81
 '
 
-VERSION="1.0"
+VERSION="1.1"
 
 # Print ASCII Header
 function print_banner {
@@ -78,7 +78,7 @@ if [[ `which gcloud` ]]; then
    fi
 if [[ `which helm` ]]; then
    HELM=1
-   echo "HELM EXISTS -" $(helm version | tail -1);
+   echo "HELM EXISTS -" $(helm version | tail -1 2> /dev/null);
    fi
 echo ""
 }
@@ -189,9 +189,9 @@ if [[ $1 = "-a" ]]; then
       #sudo rm /var/lib/snapd/cache/*
 
       echo "Updating and cleaning Flatpak Packages..."
-      flatpak update &
+      flatpak update -y &
       wait $!
-      flatpak uninstall --unused &
+      flatpak uninstall --unused -y &
       wait $! 
 
       echo "Updating and cleaning Pip3 packages..."
@@ -332,9 +332,9 @@ case $OPTION in
     ;;
   f)
     echo "Updating and cleaning Flatpak Packages..."
-    flatpak update &
+    flatpak update -y &
     wait $!
-    flatpak uninstall --unused &
+    flatpak uninstall --unused -y &
     wait $!
     ;;
  p)
